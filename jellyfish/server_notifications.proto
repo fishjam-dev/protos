@@ -9,10 +9,13 @@ message ControlMessage {
     ServerNotification.PeerNotification peerDisconnnected = 3;
     ServerNotification.PeerNotification peerCrashed = 4;
     ServerNotification.ComponentNotification componentCrashed = 5;
+    ServerNotification.Authenticated authenticated = 6;
   }
 }
 
 message ServerNotification {
+    message Authenticated{}
+
     message RoomNotification{
         string roomId=1;
     }
@@ -21,7 +24,6 @@ message ServerNotification {
         string roomId=1;
         string peerId=2;
     }
-
 
     message ComponentNotification{
         string roomId=1;
