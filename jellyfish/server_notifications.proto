@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package Jellyfish.Server;
+
+message ControlMessage {
+  oneof content {
+    ServerNotification.RoomNotification roomCrashed = 1;
+    ServerNotification.PeerNotification peerConnected = 2;
+    ServerNotification.PeerNotification peerDisconnnected = 3;
+    ServerNotification.PeerNotification peerCrashed = 4;
+    ServerNotification.ComponentNotification componentCrashed = 5;
+  }
+}
+
+message ServerNotification {
+    message RoomNotification{
+        string roomId=1;
+    }
+
+    message PeerNotification{
+        string roomId=1;
+        string peerId=2;
+    }
+
+
+    message ComponentNotification{
+        string roomId=1;
+        string componentId=2;
+    }
+}
