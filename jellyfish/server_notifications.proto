@@ -6,10 +6,18 @@ message ControlMessage {
   oneof content {
     ServerNotification.RoomNotification roomCrashed = 1;
     ServerNotification.PeerNotification peerConnected = 2;
-    ServerNotification.PeerNotification peerDisconnnected = 3;
+    ServerNotification.PeerNotification peerDisconnected = 3;
     ServerNotification.PeerNotification peerCrashed = 4;
     ServerNotification.ComponentNotification componentCrashed = 5;
     ServerNotification.Authenticated authenticated = 6;
+
+    ClientMessage.TokenMessage authRequest=7;
+  }
+}
+
+message ClientMessage {
+  message TokenMessage{
+    string token=1;
   }
 }
 
