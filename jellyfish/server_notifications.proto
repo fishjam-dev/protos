@@ -41,6 +41,6 @@ message ControlMessage {
     ComponentCrashed componentCrashed = 5;
     Authenticated authenticated = 6;
 
-    AuthRequest authRequest=7;
+    AuthRequest authRequest = 7;
   }
 }
