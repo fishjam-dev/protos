@@ -3,38 +3,44 @@ syntax = "proto3";
 package Jellyfish.Server;
 
 message ControlMessage {
-  oneof content {
-    ServerNotification.RoomNotification roomCrashed = 1;
-    ServerNotification.PeerNotification peerConnected = 2;
-    ServerNotification.PeerNotification peerDisconnected = 3;
-    ServerNotification.PeerNotification peerCrashed = 4;
-    ServerNotification.ComponentNotification componentCrashed = 5;
-    ServerNotification.Authenticated authenticated = 6;
-
-    ClientMessage.TokenMessage authRequest=7;
+  message RoomCrashed {
+    string room_id = 1;
   }
-}
 
-message ClientMessage {
-  message TokenMessage{
+  message PeerConnected {
+    string room_id = 1;
+    string peer_id = 2;
+  }
+
+  message PeerDisconnected {
+    string room_id = 1;
+    string peer_id = 2;
+  }
+
+  message PeerCrashed {
+    string room_id = 1;
+    string peer_id = 2;
+  }
+
+  message ComponentCrashed {
+    string room_id=1;
+    string component_id=2;
+  }
+
+  message Authenticated{}
+
+  message AuthRequest{
     string token=1;
   }
-}
 
-message ServerNotification {
-    message Authenticated{}
+  oneof content {
+    RoomCrashed roomCrashed = 1;
+    PeerConnected peerConnected = 2;
+    PeerDisconnected peerDisconnected = 3;
+    PeerCrashed peerCrashed = 4;
+    ComponentCrashed componentCrashed = 5;
+    Authenticated authenticated = 6;
 
-    message RoomNotification{
-        string roomId=1;
-    }
-
-    message PeerNotification{
-        string roomId=1;
-        string peerId=2;
-    }
-
-    message ComponentNotification{
-        string roomId=1;
-        string componentId=2;
-    }
+    AuthRequest authRequest=7;
+  }
 }
