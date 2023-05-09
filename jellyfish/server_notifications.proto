@@ -23,14 +23,14 @@ message ControlMessage {
   }
 
   message ComponentCrashed {
-    string room_id=1;
-    string component_id=2;
+    string room_id = 1;
+    string component_id = 2;
   }
 
   message Authenticated{}
 
   message AuthRequest{
-    string token=1;
+    string token = 1;
   }
 
   oneof content {
