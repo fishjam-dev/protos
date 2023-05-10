@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package Jellyfish.Server;
+
+message ControlMessage {
+  message RoomCrashed {
+    string room_id = 1;
+  }
+
+  message PeerConnected {
+    string room_id = 1;
+    string peer_id = 2;
+  }
+
+  message PeerDisconnected {
+    string room_id = 1;
+    string peer_id = 2;
+  }
+
+  message PeerCrashed {
+    string room_id = 1;
+    string peer_id = 2;
+  }
+
+  message ComponentCrashed {
+    string room_id = 1;
+    string component_id = 2;
+  }
+
+  message Authenticated{}
+
+  message AuthRequest{
+    string token = 1;
+  }
+
+  oneof content {
+    RoomCrashed room_crashed = 1;
+    PeerConnected peer_connected = 2;
+    PeerDisconnected peer_disconnected = 3;
+    PeerCrashed peer_crashed = 4;
+    ComponentCrashed component_crashed = 5;
+    Authenticated authenticated = 6;
+
+    AuthRequest auth_request = 7;
+  }
+}
