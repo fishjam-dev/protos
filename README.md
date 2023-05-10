@@ -4,7 +4,7 @@ This repository contains protocol buffers definitions for [jellyfish-dev organiz
 
 ## How to add this repo as a git submodule in your own repository
 
-Use this command below:
+Use the command below:
 
 `git submodule add https://github.com/jellyfish-dev/protos.git`
 
