@@ -34,13 +34,13 @@ message ControlMessage {
   }
 
   oneof content {
-    RoomCrashed roomCrashed = 1;
-    PeerConnected peerConnected = 2;
-    PeerDisconnected peerDisconnected = 3;
-    PeerCrashed peerCrashed = 4;
-    ComponentCrashed componentCrashed = 5;
+    RoomCrashed room_crashed = 1;
+    PeerConnected peer_connected = 2;
+    PeerDisconnected peer_disconnected = 3;
+    PeerCrashed peer_crashed = 4;
+    ComponentCrashed component_crashed = 5;
     Authenticated authenticated = 6;
 
-    AuthRequest authRequest = 7;
+    AuthRequest auth_request = 7;
   }
 }
