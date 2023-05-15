@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package jellyfish.peer;
+
+message ControlMessage {
+  message Authenticated {}
+
+  message AuthRequest {
+    string token = 1;
+  }
+
+  message MediaEvent {
+    string data = 1;
+  }
+
+  oneof content {
+    Authenticated authenticated = 1;
+    AuthRequest auth_request = 2;
+    MediaEvent media_event = 3;
+  }
+}
+

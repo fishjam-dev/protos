@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Jellyfish.Server;
+package jellyfish.server;
 
 message ControlMessage {
   message RoomCrashed {
@@ -27,9 +27,9 @@ message ControlMessage {
     string component_id = 2;
   }
 
-  message Authenticated{}
+  message Authenticated {}
 
-  message AuthRequest{
+  message AuthRequest {
     string token = 1;
   }
 
@@ -40,7 +40,6 @@ message ControlMessage {
     PeerCrashed peer_crashed = 4;
     ComponentCrashed component_crashed = 5;
     Authenticated authenticated = 6;
-
     AuthRequest auth_request = 7;
   }
 }
