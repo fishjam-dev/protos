@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package jellyfish.peer;
+package jellyfish;
 
-message ControlMessage {
+message PeerMessage {
   message Authenticated {}
 
   message AuthRequest {

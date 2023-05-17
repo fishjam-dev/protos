@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package jellyfish.server;
+package jellyfish;
 
-message ControlMessage {
+message ServerMessage {
   message RoomCrashed {
     string room_id = 1;
   }
