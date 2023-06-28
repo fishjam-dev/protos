@@ -33,6 +33,61 @@ message ServerMessage {
     string token = 1;
   }
 
+  message RoomStateRequest {
+    enum Option {
+      ALL = 0;
+    }
+
+    oneof content {
+      string id = 1;
+      Option option = 2;
+    }
+  }
+
+  message RoomState {
+    message Config {
+      uint32 max_peers = 1;
+    }
+
+    message Peer {
+      enum Type {
+        WEBRTC = 0;
+      }
+
+      enum Status {
+        CONNECTED = 0;
+        DISCONNECTED = 1;
+      }
+
+      string id = 1;
+      Type type = 2;
+      Status status = 3;
+    }
+
+    message Component {
+      enum Type {
+        HLS = 0;
+        RTSP = 1;
+      }
+
+      string id = 1;
+      Type type = 2;
+    }
+
+    string id = 1;
+    Config config = 2;
+    repeated Peer peers = 3;
+    repeated Component components = 4;
+  }
+
+  message RoomsState {
+    repeated RoomState rooms = 1;
+  }
+
+  message RoomNotFound {
+    string id = 1;
+  }
+
   oneof content {
     RoomCrashed room_crashed = 1;
     PeerConnected peer_connected = 2;
@@ -41,5 +96,9 @@ message ServerMessage {
     ComponentCrashed component_crashed = 5;
     Authenticated authenticated = 6;
     AuthRequest auth_request = 7;
+    RoomStateRequest room_state_request = 8;
+    RoomState room_state = 9;
+    RoomsState rooms_state = 10;
+    RoomNotFound room_not_found = 11;
   }
 }
