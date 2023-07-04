@@ -4,4 +4,7 @@ breaking:
     - FILE
 lint:
   use:
-    - BASIC
+    - DEFAULT
+  ignore_only:
+    PACKAGE_VERSION_SUFFIX:
+      - jellyfish

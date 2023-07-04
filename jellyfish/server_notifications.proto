@@ -35,8 +35,8 @@ message ServerMessage {
 
   message RoomStateRequest {
     enum Option {
-      UNSPECIFIED = 0;
-      ALL = 1;
+      OPTION_UNSPECIFIED = 0;
+      OPTION_ALL = 1;
     }
 
     oneof content {
@@ -52,14 +52,14 @@ message ServerMessage {
 
     message Peer {
       enum Type {
-        UNSPECIFIED = 0;
-        WEBRTC = 1;
+        TYPE_UNSPECIFIED = 0;
+        TYPE_WEBRTC = 1;
       }
 
       enum Status {
-        UNSPECIFIED = 0;
-        CONNECTED = 1;
-        DISCONNECTED = 2;
+        STATUS_UNSPECIFIED = 0;
+        STATUS_CONNECTED = 1;
+        STATUS_DISCONNECTED = 2;
       }
 
       string id = 1;
@@ -69,9 +69,9 @@ message ServerMessage {
 
     message Component {
       enum Type {
-        UNSPECIFIED = 0;
-        HLS = 1;
-        RTSP = 2;
+        TYPE_UNSPECIFIED = 0;
+        TYPE_HLS = 1;
+        TYPE_RTSP = 2;
       }
 
       string id = 1;
