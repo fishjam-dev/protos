@@ -33,63 +33,79 @@ message ServerMessage {
     string token = 1;
   }
 
-  message RoomStateRequest {
-    enum Option {
-      OPTION_UNSPECIFIED = 0;
-      OPTION_ALL = 1;
+  message SubscribeRequest {
+    message ServerNotification {
+      enum Option {
+        OPTION_UNSPECIFIED = 0;
+        OPTION_ALL = 1;
+      }
+
+      oneof room_id {
+        string id = 1;
+        Option option = 2;
+      }
     }
 
+    string id = 1;
+    oneof event_type {
+      ServerNotification server_notification = 2;
+    }
+  }
+
+  message SubscriptionResponse {
+    message RoomState {
+      message Config {
+        uint32 max_peers = 1;
+      }
+
+      message Peer {
+        enum Type {
+          TYPE_UNSPECIFIED = 0;
+          TYPE_WEBRTC = 1;
+        }
+
+        enum Status {
+          STATUS_UNSPECIFIED = 0;
+          STATUS_CONNECTED = 1;
+          STATUS_DISCONNECTED = 2;
+        }
+
+        string id = 1;
+        Type type = 2;
+        Status status = 3;
+      }
+
+      message Component {
+        enum Type {
+          TYPE_UNSPECIFIED = 0;
+          TYPE_HLS = 1;
+          TYPE_RTSP = 2;
+        }
+
+        string id = 1;
+        Type type = 2;
+      }
+
+      string id = 1;
+      Config config = 2;
+      repeated Peer peers = 3;
+      repeated Component components = 4;
+    }
+
+    message RoomsState {
+      repeated RoomState rooms = 1;
+    }
+
+    message RoomNotFound {
+      string id = 1;
+    }
+
+    string id = 1;
     oneof content {
-      string id = 1;
-      Option option = 2;
+      RoomState room_state = 2;
+      RoomsState rooms_state = 3;
+      RoomNotFound room_not_found = 4;
     }
-  }
-
-  message RoomState {
-    message Config {
-      uint32 max_peers = 1;
-    }
-
-    message Peer {
-      enum Type {
-        TYPE_UNSPECIFIED = 0;
-        TYPE_WEBRTC = 1;
-      }
-
-      enum Status {
-        STATUS_UNSPECIFIED = 0;
-        STATUS_CONNECTED = 1;
-        STATUS_DISCONNECTED = 2;
-      }
-
-      string id = 1;
-      Type type = 2;
-      Status status = 3;
-    }
-
-    message Component {
-      enum Type {
-        TYPE_UNSPECIFIED = 0;
-        TYPE_HLS = 1;
-        TYPE_RTSP = 2;
-      }
-
-      string id = 1;
-      Type type = 2;
-    }
-
-    string id = 1;
-    Config config = 2;
-    repeated Peer peers = 3;
-    repeated Component components = 4;
-  }
-
-  message RoomsState {
-    repeated RoomState rooms = 1;
-  }
-
-  message RoomNotFound {
-    string id = 1;
   }
 
   oneof content {
@@ -100,9 +116,7 @@ message ServerMessage {
     ComponentCrashed component_crashed = 5;
     Authenticated authenticated = 6;
     AuthRequest auth_request = 7;
-    RoomStateRequest room_state_request = 8;
-    RoomState room_state = 9;
-    RoomsState rooms_state = 10;
-    RoomNotFound room_not_found = 11;
+    SubscribeRequest subscribe_request = 8;
+    SubscriptionResponse subscription_response = 9;
   }
 }
