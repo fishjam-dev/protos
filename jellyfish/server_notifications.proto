@@ -108,6 +108,14 @@ message ServerMessage {
     }
   }
 
+  message RoomCreated {
+    string room_id = 1;
+  }
+
+  message RoomDeleted {
+    string room_id = 1;
+  }
+
   oneof content {
     RoomCrashed room_crashed = 1;
     PeerConnected peer_connected = 2;
@@ -118,5 +126,7 @@ message ServerMessage {
     AuthRequest auth_request = 7;
     SubscribeRequest subscribe_request = 8;
     SubscriptionResponse subscription_response = 9;
+    RoomCreated room_created = 10;
+    RoomDeleted room_deleted = 11;
   }
 }
