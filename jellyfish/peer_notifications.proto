@@ -19,4 +19,3 @@ message PeerMessage {
     MediaEvent media_event = 3;
   }
 }
-
