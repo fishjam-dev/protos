@@ -46,9 +46,12 @@ message ServerMessage {
       }
     }
 
+    message Metrics {}
+
     string id = 1;
     oneof event_type {
       ServerNotification server_notification = 2;
+      Metrics metrics = 3;
     }
   }
 
@@ -123,6 +126,10 @@ message ServerMessage {
     string room_id = 1;
   }
 
+  message MetricsReport {
+    string metrics = 1;
+  }
+
   oneof content {
     RoomCrashed room_crashed = 1;
     PeerConnected peer_connected = 2;
@@ -135,5 +142,6 @@ message ServerMessage {
     SubscriptionResponse subscription_response = 9;
     RoomCreated room_created = 10;
     RoomDeleted room_deleted = 11;
+    MetricsReport metrics_report = 12;
   }
 }
