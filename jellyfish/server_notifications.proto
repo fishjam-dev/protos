@@ -58,14 +58,14 @@ message ServerMessage {
   message SubscribeResponse {
     message RoomState {
       message Config {
-        enum Encoding {
-          ENCODING_UNSPECIFIED = 0;
-          ENCODING_H264 = 1;
-          ENCODING_VP8 = 2;
+        enum Codec {
+          CODEC_UNSPECIFIED = 0;
+          CODEC_H264 = 1;
+          CODEC_VP8 = 2;
         }
 
         uint32 max_peers = 1;
-        Encoding enforce_encoding = 2;
+        Codec video_codec = 2;
       }
 
       message Peer {
