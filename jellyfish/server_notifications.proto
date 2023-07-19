@@ -124,6 +124,8 @@ message ServerMessage {
 
   message MetricsReport { string metrics = 1; }
 
+  message HlsPlayable { string component_id = 1; }
+
   oneof content {
     RoomCrashed room_crashed = 1;
     PeerConnected peer_connected = 2;
@@ -137,5 +139,6 @@ message ServerMessage {
     RoomCreated room_created = 10;
     RoomDeleted room_deleted = 11;
     MetricsReport metrics_report = 12;
+    HlsPlayable hls_playable = 13;
   }
 }
