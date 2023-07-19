@@ -3,9 +3,7 @@ syntax = "proto3";
 package jellyfish;
 
 message ServerMessage {
-  message RoomCrashed {
-    string room_id = 1;
-  }
+  message RoomCrashed { string room_id = 1; }
 
   message PeerConnected {
     string room_id = 1;
@@ -29,9 +27,7 @@ message ServerMessage {
 
   message Authenticated {}
 
-  message AuthRequest {
-    string token = 1;
-  }
+  message AuthRequest { string token = 1; }
 
   message SubscribeRequest {
     message ServerNotification {
@@ -86,6 +82,10 @@ message ServerMessage {
       }
 
       message Component {
+        message Hls { bool playable = 1; }
+
+        message Rtsp {}
+
         enum Type {
           TYPE_UNSPECIFIED = 0;
           TYPE_HLS = 1;
@@ -94,6 +94,10 @@ message ServerMessage {
 
         string id = 1;
         Type type = 2;
+        oneof component {
+          Hls hls = 3;
+          Rtsp rtsp = 4;
+        }
       }
 
       string id = 1;
@@ -102,13 +106,9 @@ message ServerMessage {
       repeated Component components = 4;
     }
 
-    message RoomsState {
-      repeated RoomState rooms = 1;
-    }
+    message RoomsState { repeated RoomState rooms = 1; }
 
-    message RoomNotFound {
-      string id = 1;
-    }
+    message RoomNotFound { string id = 1; }
 
     string id = 1;
     oneof content {
@@ -118,17 +118,11 @@ message ServerMessage {
     }
   }
 
-  message RoomCreated {
-    string room_id = 1;
-  }
+  message RoomCreated { string room_id = 1; }
 
-  message RoomDeleted {
-    string room_id = 1;
-  }
+  message RoomDeleted { string room_id = 1; }
 
-  message MetricsReport {
-    string metrics = 1;
-  }
+  message MetricsReport { string metrics = 1; }
 
   oneof content {
     RoomCrashed room_crashed = 1;
