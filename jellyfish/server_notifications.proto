@@ -86,17 +86,10 @@ message ServerMessage {
 
         message Rtsp {}
 
-        enum Type {
-          TYPE_UNSPECIFIED = 0;
-          TYPE_HLS = 1;
-          TYPE_RTSP = 2;
-        }
-
         string id = 1;
-        Type type = 2;
         oneof component {
-          Hls hls = 3;
-          Rtsp rtsp = 4;
+          Hls hls = 2;
+          Rtsp rtsp = 3;
         }
       }
 
@@ -124,7 +117,10 @@ message ServerMessage {
 
   message MetricsReport { string metrics = 1; }
 
-  message HlsPlayable { string component_id = 1; }
+  message HlsPlayable {
+    string room_id = 1;
+    string component_id = 2;
+  }
 
   oneof content {
     RoomCrashed room_crashed = 1;
