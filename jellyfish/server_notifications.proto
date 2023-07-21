@@ -33,18 +33,54 @@ message ServerMessage {
     string token = 1;
   }
 
-  message SubscribeRequest {
-    message ServerNotification {
-      enum Option {
-        OPTION_UNSPECIFIED = 0;
-        OPTION_ALL = 1;
+  message RoomState {
+    message Config {
+      enum Codec {
+        CODEC_UNSPECIFIED = 0;
+        CODEC_H264 = 1;
+        CODEC_VP8 = 2;
       }
 
-      oneof room_id {
-        string id = 1;
-        Option option = 2;
-      }
+      uint32 max_peers = 1;
+      Codec video_codec = 2;
     }
+
+    message Peer {
+      enum Type {
+        TYPE_UNSPECIFIED = 0;
+        TYPE_WEBRTC = 1;
+      }
+
+      enum Status {
+        STATUS_UNSPECIFIED = 0;
+        STATUS_CONNECTED = 1;
+        STATUS_DISCONNECTED = 2;
+      }
+
+      string id = 1;
+      Type type = 2;
+      Status status = 3;
+    }
+
+    message Component {
+      enum Type {
+        TYPE_UNSPECIFIED = 0;
+        TYPE_HLS = 1;
+        TYPE_RTSP = 2;
+      }
+
+      string id = 1;
+      Type type = 2;
+    }
+
+    string id = 1;
+    Config config = 2;
+    repeated Peer peers = 3;
+    repeated Component components = 4;
+  }
+
+  message SubscribeRequest {
+    message ServerNotification {}
 
     message Metrics {}
 
@@ -56,65 +92,13 @@ message ServerMessage {
   }
 
   message SubscribeResponse {
-    message RoomState {
-      message Config {
-        enum Codec {
-          CODEC_UNSPECIFIED = 0;
-          CODEC_H264 = 1;
-          CODEC_VP8 = 2;
-        }
-
-        uint32 max_peers = 1;
-        Codec video_codec = 2;
-      }
-
-      message Peer {
-        enum Type {
-          TYPE_UNSPECIFIED = 0;
-          TYPE_WEBRTC = 1;
-        }
-
-        enum Status {
-          STATUS_UNSPECIFIED = 0;
-          STATUS_CONNECTED = 1;
-          STATUS_DISCONNECTED = 2;
-        }
-
-        string id = 1;
-        Type type = 2;
-        Status status = 3;
-      }
-
-      message Component {
-        enum Type {
-          TYPE_UNSPECIFIED = 0;
-          TYPE_HLS = 1;
-          TYPE_RTSP = 2;
-        }
-
-        string id = 1;
-        Type type = 2;
-      }
-
-      string id = 1;
-      Config config = 2;
-      repeated Peer peers = 3;
-      repeated Component components = 4;
-    }
-
-    message RoomsState {
+    message RoomStates {
       repeated RoomState rooms = 1;
-    }
-
-    message RoomNotFound {
-      string id = 1;
     }
 
     string id = 1;
     oneof content {
-      RoomState room_state = 2;
-      RoomsState rooms_state = 3;
-      RoomNotFound room_not_found = 4;
+      RoomStates room_states = 2;
     }
   }
 
@@ -130,6 +114,14 @@ message ServerMessage {
     string metrics = 1;
   }
 
+  message RoomStateRequest {
+    string room_id = 1;
+  }
+
+  message RoomNotFound {
+    string room_id = 1;
+  }
+
   oneof content {
     RoomCrashed room_crashed = 1;
     PeerConnected peer_connected = 2;
@@ -143,5 +135,8 @@ message ServerMessage {
     RoomCreated room_created = 10;
     RoomDeleted room_deleted = 11;
     MetricsReport metrics_report = 12;
+    RoomStateRequest room_state_request = 13;
+    RoomState room_state = 14;
+    RoomNotFound room_not_found = 15;
   }
 }
