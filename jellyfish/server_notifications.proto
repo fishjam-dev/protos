@@ -86,14 +86,17 @@ message ServerMessage {
       }
 
       message Component {
-        enum Type {
-          TYPE_UNSPECIFIED = 0;
-          TYPE_HLS = 1;
-          TYPE_RTSP = 2;
+        message Hls {
+          bool playable = 1;
         }
 
+        message Rtsp {}
+
         string id = 1;
-        Type type = 2;
+        oneof component {
+          Hls hls = 2;
+          Rtsp rtsp = 3;
+        }
       }
 
       string id = 1;
@@ -130,6 +133,11 @@ message ServerMessage {
     string metrics = 1;
   }
 
+  message HlsPlayable {
+    string room_id = 1;
+    string component_id = 2;
+  }
+
   oneof content {
     RoomCrashed room_crashed = 1;
     PeerConnected peer_connected = 2;
@@ -143,5 +151,6 @@ message ServerMessage {
     RoomCreated room_created = 10;
     RoomDeleted room_deleted = 11;
     MetricsReport metrics_report = 12;
+    HlsPlayable hls_playable = 13;
   }
 }
