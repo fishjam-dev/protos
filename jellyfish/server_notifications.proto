@@ -92,14 +92,7 @@ message ServerMessage {
   }
 
   message SubscribeResponse {
-    message RoomStates {
-      repeated RoomState rooms = 1;
-    }
-
     string id = 1;
-    oneof content {
-      RoomStates room_states = 2;
-    }
   }
 
   message RoomCreated {
@@ -122,6 +115,12 @@ message ServerMessage {
     string room_id = 1;
   }
 
+  message GetRoomIds {}
+
+  message RoomIds {
+    repeated string ids = 1;
+  }
+
   oneof content {
     RoomCrashed room_crashed = 1;
     PeerConnected peer_connected = 2;
@@ -138,5 +137,7 @@ message ServerMessage {
     RoomStateRequest room_state_request = 13;
     RoomState room_state = 14;
     RoomNotFound room_not_found = 15;
+    GetRoomIds get_room_ids = 16;
+    RoomIds room_ids = 17;
   }
 }
