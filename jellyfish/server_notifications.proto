@@ -63,14 +63,17 @@ message ServerMessage {
     }
 
     message Component {
-      enum Type {
-        TYPE_UNSPECIFIED = 0;
-        TYPE_HLS = 1;
-        TYPE_RTSP = 2;
+      message Hls {
+        bool playable = 1;
       }
 
+      message Rtsp {}
+
       string id = 1;
-      Type type = 2;
+      oneof component {
+        Hls hls = 2;
+        Rtsp rtsp = 3;
+      }
     }
 
     string id = 1;
@@ -119,6 +122,11 @@ message ServerMessage {
     repeated string ids = 1;
   }
 
+  message HlsPlayable {
+    string room_id = 1;
+    string component_id = 2;
+  }
+
   oneof content {
     RoomCrashed room_crashed = 1;
     PeerConnected peer_connected = 2;
@@ -132,10 +140,11 @@ message ServerMessage {
     RoomCreated room_created = 10;
     RoomDeleted room_deleted = 11;
     MetricsReport metrics_report = 12;
-    RoomStateRequest room_state_request = 13;
-    RoomState room_state = 14;
-    RoomNotFound room_not_found = 15;
-    GetRoomIds get_room_ids = 16;
-    RoomIds room_ids = 17;
+    HlsPlayable hls_playable = 13;
+    RoomStateRequest room_state_request = 14;
+    RoomState room_state = 15;
+    RoomNotFound room_not_found = 16;
+    GetRoomIds get_room_ids = 17;
+    RoomIds room_ids = 18;
   }
 }
