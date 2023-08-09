@@ -33,55 +33,6 @@ message ServerMessage {
     string token = 1;
   }
 
-  message RoomState {
-    message Config {
-      enum Codec {
-        CODEC_UNSPECIFIED = 0;
-        CODEC_H264 = 1;
-        CODEC_VP8 = 2;
-      }
-
-      uint32 max_peers = 1;
-      Codec video_codec = 2;
-    }
-
-    message Peer {
-      enum Type {
-        TYPE_UNSPECIFIED = 0;
-        TYPE_WEBRTC = 1;
-      }
-
-      enum Status {
-        STATUS_UNSPECIFIED = 0;
-        STATUS_CONNECTED = 1;
-        STATUS_DISCONNECTED = 2;
-      }
-
-      string id = 1;
-      Type type = 2;
-      Status status = 3;
-    }
-
-    message Component {
-      message Hls {
-        bool playable = 1;
-      }
-
-      message Rtsp {}
-
-      string id = 1;
-      oneof component {
-        Hls hls = 2;
-        Rtsp rtsp = 3;
-      }
-    }
-
-    string id = 1;
-    Config config = 2;
-    repeated Peer peers = 3;
-    repeated Component components = 4;
-  }
-
   enum EventType {
     EVENT_TYPE_UNSPECIFIED = 0;
     EVENT_TYPE_SERVER_NOTIFICATION = 1;
@@ -108,20 +59,6 @@ message ServerMessage {
     string metrics = 1;
   }
 
-  message RoomStateRequest {
-    string room_id = 1;
-  }
-
-  message RoomNotFound {
-    string room_id = 1;
-  }
-
-  message GetRoomIds {}
-
-  message RoomIds {
-    repeated string ids = 1;
-  }
-
   message HlsPlayable {
     string room_id = 1;
     string component_id = 2;
@@ -141,10 +78,5 @@ message ServerMessage {
     RoomDeleted room_deleted = 11;
     MetricsReport metrics_report = 12;
     HlsPlayable hls_playable = 13;
-    RoomStateRequest room_state_request = 14;
-    RoomState room_state = 15;
-    RoomNotFound room_not_found = 16;
-    GetRoomIds get_room_ids = 17;
-    RoomIds room_ids = 18;
   }
 }
