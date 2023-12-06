@@ -64,6 +64,10 @@ message ServerMessage {
     string component_id = 2;
   }
 
+  message HLSUploaded {
+    string room_id = 1;
+  }
+
   oneof content {
     RoomCrashed room_crashed = 1;
     PeerConnected peer_connected = 2;
@@ -78,5 +82,6 @@ message ServerMessage {
     RoomDeleted room_deleted = 11;
     MetricsReport metrics_report = 12;
     HlsPlayable hls_playable = 13;
+    HLSUploaded hls_uploaded = 14;
   }
 }
