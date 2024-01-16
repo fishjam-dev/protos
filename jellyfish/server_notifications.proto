@@ -72,6 +72,29 @@ message ServerMessage {
     string room_id = 1;
   }
 
+  message Track {
+    string track_id = 1;
+    oneof endpoint_id {
+      string peer_id = 2;
+      string component_id = 3;
+    }
+  }
+
+  message TrackAdded {
+    string room_id = 1;
+    Track track = 2;
+  }
+
+  message TrackMetadataUpdated {
+    string room_id = 1;
+    Track track = 2;
+  }
+
+  message TrackRemoved {
+    string room_id = 1;
+    Track track = 2;
+  }
+
   oneof content {
     RoomCrashed room_crashed = 1;
     PeerConnected peer_connected = 2;
@@ -88,5 +111,7 @@ message ServerMessage {
     HlsPlayable hls_playable = 13;
     HlsUploaded hls_uploaded = 14;
     HlsUploadCrashed hls_upload_crashed = 15;
+    TrackAdded track_added = 16;
+    TrackRemoved track_removed = 17;
   }
 }
