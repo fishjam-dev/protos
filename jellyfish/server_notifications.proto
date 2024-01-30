@@ -72,27 +72,57 @@ message ServerMessage {
     string room_id = 1;
   }
 
+  message PeerMetadataUpdated {
+    string room_id = 1;
+    string peer_id = 2;
+    string metadata = 3;
+  }
+
+  enum Encoding {
+    ENCODING_UNSPECIFIED = 0;
+    ENCODING_H264 = 1;
+    ENCODING_VP8 = 2;
+    ENCODING_OPUS = 3;
+  }
+
+  enum TrackType {
+    TRACK_TYPE_UNSPECIFIED = 0;
+    TRACK_TYPE_VIDEO = 1;
+    TRACK_TYPE_AUDIO = 2;
+  }
+
   message Track {
-    string track_id = 1;
-    oneof endpoint_id {
-      string peer_id = 2;
-      string component_id = 3;
-    }
+    string id = 1;
+    TrackType type = 2;
+    Encoding encoding = 3;
+    string metadata = 4;
   }
 
   message TrackAdded {
     string room_id = 1;
-    Track track = 2;
-  }
-
-  message TrackMetadataUpdated {
-    string room_id = 1;
-    Track track = 2;
+    oneof endpoint_info {
+      string peer_id = 2;
+      string component_id = 3;
+    }
+    Track track = 4;
   }
 
   message TrackRemoved {
     string room_id = 1;
-    Track track = 2;
+    oneof endpoint_info {
+      string peer_id = 2;
+      string component_id = 3;
+    }
+    Track track = 4;
+  }
+
+  message TrackMetadataUpdated {
+    string room_id = 1;
+    oneof endpoint_info {
+      string peer_id = 2;
+      string component_id = 3;
+    }
+    Track track = 4;
   }
 
   oneof content {
@@ -111,7 +141,9 @@ message ServerMessage {
     HlsPlayable hls_playable = 13;
     HlsUploaded hls_uploaded = 14;
     HlsUploadCrashed hls_upload_crashed = 15;
-    TrackAdded track_added = 16;
-    TrackRemoved track_removed = 17;
+    PeerMetadataUpdated peer_metadata_updated = 16;
+    TrackAdded track_added = 17;
+    TrackRemoved track_removed = 18;
+    TrackMetadataUpdated track_metadata_updated = 19;
   }
 }
