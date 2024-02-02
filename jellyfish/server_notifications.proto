@@ -78,13 +78,6 @@ message ServerMessage {
     string metadata = 3;
   }
 
-  enum Encoding {
-    ENCODING_UNSPECIFIED = 0;
-    ENCODING_H264 = 1;
-    ENCODING_VP8 = 2;
-    ENCODING_OPUS = 3;
-  }
-
   enum TrackType {
     TRACK_TYPE_UNSPECIFIED = 0;
     TRACK_TYPE_VIDEO = 1;
@@ -94,8 +87,7 @@ message ServerMessage {
   message Track {
     string id = 1;
     TrackType type = 2;
-    Encoding encoding = 3;
-    string metadata = 4;
+    string metadata = 3;
   }
 
   message TrackAdded {
