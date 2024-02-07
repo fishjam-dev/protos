@@ -2,13 +2,17 @@ syntax = "proto3";
 
 package jellyfish;
 
+// Defines any type of message sent between JF and a peer
 message PeerMessage {
+  // Response sent by JF, confirming successfull authentication
   message Authenticated {}
 
+  // Request sent by peer, to authenticate to JF server
   message AuthRequest {
     string token = 1;
   }
 
+  // Any type of WebRTC messages passed betweend JF and peer
   message MediaEvent {
     string data = 1;
   }
