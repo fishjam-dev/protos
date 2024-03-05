@@ -25,6 +25,7 @@ message ServerMessage {
   message PeerCrashed {
     string room_id = 1;
     string peer_id = 2;
+    string reason = 3;
   }
 
   // Notification sent when a component crashes
