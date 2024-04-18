@@ -9,6 +9,18 @@ message ServerMessage {
     string room_id = 1;
   }
 
+  // Notification sent when a peer is added
+  message PeerAdded {
+    string room_id = 1;
+    string peer_id = 2;
+  }
+
+  // Notification sent when a peer is removed
+  message PeerDeleted {
+    string room_id = 1;
+    string peer_id = 2;
+  }
+
   // Notification sent when a peer connects
   message PeerConnected {
     string room_id = 1;
