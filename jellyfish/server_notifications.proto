@@ -173,5 +173,7 @@ message ServerMessage {
     TrackAdded track_added = 17;
     TrackRemoved track_removed = 18;
     TrackMetadataUpdated track_metadata_updated = 19;
+    PeerAdded peer_added = 20;
+    PeerDeleted peer_deleted = 21;
   }
 }
