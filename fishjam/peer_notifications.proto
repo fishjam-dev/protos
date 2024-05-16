@@ -1,18 +1,18 @@
 syntax = "proto3";
 
-package jellyfish;
+package fishjam;
 
-// Defines any type of message sent between JF and a peer
+// Defines any type of message sent between FJ and a peer
 message PeerMessage {
-  // Response sent by JF, confirming successfull authentication
+  // Response sent by FJ, confirming successfull authentication
   message Authenticated {}
 
-  // Request sent by peer, to authenticate to JF server
+  // Request sent by peer, to authenticate to FJ server
   message AuthRequest {
     string token = 1;
   }
 
-  // Any type of WebRTC messages passed betweend JF and peer
+  // Any type of WebRTC messages passed betweend FJ and peer
   message MediaEvent {
     string data = 1;
   }

@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package jellyfish;
+package fishjam;
 
-// Defines any type of message passed between JF and server client
+// Defines any type of message passed between FJ and server client
 message ServerMessage {
   // Notification sent when a room crashes
   message RoomCrashed {
@@ -27,7 +27,7 @@ message ServerMessage {
     string peer_id = 2;
   }
 
-  // Notification sent when a peer disconnects from JF
+  // Notification sent when a peer disconnects from FJ
   message PeerDisconnected {
     string room_id = 1;
     string peer_id = 2;
@@ -46,10 +46,10 @@ message ServerMessage {
     string component_id = 2;
   }
 
-  // Response sent by JF, confirming successfull authentication
+  // Response sent by FJ, confirming successfull authentication
   message Authenticated {}
 
-  // Request sent by client, to authenticate to JF server
+  // Request sent by client, to authenticate to FJ server
   message AuthRequest {
     string token = 1;
   }
@@ -66,7 +66,7 @@ message ServerMessage {
     EventType event_type = 1;
   }
 
-  // Response sent by JF, confirming subscription for message type
+  // Response sent by FJ, confirming subscription for message type
   message SubscribeResponse {
     EventType event_type = 1;
   }
@@ -81,7 +81,7 @@ message ServerMessage {
     string room_id = 1;
   }
 
-  // Message containing WebRTC metrics from JF
+  // Message containing WebRTC metrics from FJ
   message MetricsReport {
     string metrics = 1;
   }
